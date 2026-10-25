@@ -46,7 +46,7 @@ function App() {
   const fetchBooks = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/books');
+      const res = await axios.get('/api/books');
       if (res.data.success) {
         setBooks(res.data.data);
       }
@@ -59,7 +59,7 @@ function App() {
 
   const fetchUserBorrows = async (uid) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/borrow/user/${uid}`);
+      const res = await axios.get(`/api/borrow/user/${uid}`);
       if (res.data.success) {
         setBorrowedBooks(res.data.data || []);
       }
@@ -74,7 +74,7 @@ function App() {
     setAuthSubmitting(true);
     const endpoint = authMode === 'login' ? 'login' : 'register';
     try {
-      const res = await axios.post(`http://localhost:5000/api/auth/${endpoint}`, authForm);
+      const res = await axios.post(`/api/auth/${endpoint}`, authForm);
       if (res.data.success) {
         localStorage.setItem('library_token', res.data.token);
         localStorage.setItem('library_user', JSON.stringify(res.data.user));
@@ -115,7 +115,7 @@ function App() {
     }
     try {
       setSemanticSearching(true);
-      const res = await axios.post('http://localhost:5000/api/ai/semantic-search', {
+      const res = await axios.post('/api/ai/semantic-search', {
         query: search
       });
       if (res.data.success) {
@@ -134,7 +134,7 @@ function App() {
     setAiLoading(true);
     setAiSummary([]);
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/summary', {
+      const res = await axios.post('/api/ai/summary', {
         title: book.title,
         author: book.author,
         category: book.category
@@ -163,7 +163,7 @@ function App() {
     try {
       setActiveActionId(bookId);
       setMessage(null);
-      const res = await axios.post('http://localhost:5000/api/borrow', {
+      const res = await axios.post('/api/borrow', {
         userId: currentUser.id,
         bookId
       });
@@ -190,7 +190,7 @@ function App() {
     try {
       setActiveActionId(borrowRecordId);
       setMessage(null);
-      const res = await axios.post('http://localhost:5000/api/borrow/return', {
+      const res = await axios.post('/api/borrow/return', {
         borrowRecord: borrowRecordId
       });
 
